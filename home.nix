@@ -35,6 +35,8 @@ in
       pavucontrol             # Audio control GUI
       libnotify               # Notification denpendency
       yt-dlp                  # yt downloader
+      qemu
+      virt-manager
 
       # -- Desktop Environment & UI --
       waybar                  # Status bar
@@ -191,5 +193,12 @@ systemd.user = {
 programs = { 
    home-manager.enable = true; # Let Home Manager install and manage itself.
    zen-browser.enable = true;
-  };
+   git = {
+    enable = true;
+    userName = "Kjnx006";
+    userEmail = "tempesto.music@gmail.com";
+    extraConfig = {
+    init.defaultBranch = "main";
+    };
+   };
 }
