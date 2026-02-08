@@ -21,12 +21,7 @@ in
     stateVersion = "25.11";
 
   file.".local/share/icons".source = config.lib.file.mkOutOfStoreSymlink "/home/kaluna/Pictures/icons"; #icons symlink
-  pointerCursor = { # Custom Cursor
-     gtk.enable = true;
-     x11.enable = true;
-     name = "Bibata-Modern-Classic";
-     size = 24;
-     };
+
     packages = with pkgs; [
       # -- System Tools & Utilities --
       fastfetch               # System info
@@ -79,7 +74,7 @@ in
     ${pkgs.kdePackages.kconfig}/bin/kwriteconfig6 --file kdeglobals --group Icons --key Theme "Fluent-teal-dark"
   '';
     };
-  }; #for dolphin to use local icons
+};
 
   gtk = {
     enable = true;
