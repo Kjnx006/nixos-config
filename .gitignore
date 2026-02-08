@@ -5,6 +5,3 @@ result-*
 # Abaikan file backup yang dibuat home-manager
 *.backup
 *.bak
-
-# Jika ada file sensitif (misal password hash) yang dipisah
-# secret.nix
