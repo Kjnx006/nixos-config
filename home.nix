@@ -32,6 +32,7 @@ in
       yt-dlp                  # yt downloader
       qemu
       virt-manager
+      kdePackages.kate
 
       # -- Desktop Environment & UI --
       waybar                  # Status bar
@@ -79,9 +80,9 @@ in
   gtk = {
     enable = true;
     theme = {
-      name = "Fluent-Dark";
+      name = "Qogir-Dark";
       #package = pkgs.nordic;
-      package = pkgs.fluent-gtk-theme;
+      package = pkgs.qogir-theme;
     };
 
     iconTheme = {
@@ -139,7 +140,7 @@ xdg = {
 
 systemd.user = {
    sessionVariables = {
-     QT_STYLE_OVERRIDE = "kvantum";
+   # QT_STYLE_OVERRIDE = "kvantum";
      QT_QPA_PLATFORM = "wayland";
 
      XDG_SESSION_TYPE = "wayland";
@@ -190,9 +191,9 @@ programs = {
    zen-browser.enable = true;
    git = {
     enable = true;
-    userName = "Kjnx006";
-    userEmail = "tempesto.music@gmail.com";
-    extraConfig = {
+    settings.user.name = "Kjnx006";
+    settings.user.email = "tempesto.music@gmail.com";
+    settings = {
     init.defaultBranch = "main";
     };
    };
