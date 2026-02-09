@@ -1,0 +1,67 @@
+layout {
+    gaps 10
+    center-focused-column "on-overflow"
+    background-color "transparent"
+    always-center-single-column
+    default-column-width { proportion 0.66667; }
+
+    preset-column-widths {
+        proportion 0.33333
+        proportion 0.5
+        proportion 0.66667
+        proportion 0.9
+    }
+    preset-window-heights {
+        proportion 0.33333
+        proportion 0.5
+        proportion 0.66667
+        proportion 1.0
+    }
+
+focus-ring {
+
+
+width 1.5
+active-color "{{colors.on_primary_container.default.hex}}"
+inactive-color "{{colors.primary.default.hex}}"
+
+
+}
+
+border {
+        off
+
+        width 4
+        active-color "#ffc87f"
+        inactive-color "#505050"
+
+        urgent-color "#9b0000"
+
+       
+    }
+    shadow {
+      
+        // on
+
+        softness 30
+
+      
+        spread 5
+
+      
+        offset x=0 y=5
+
+        color "#0007"
+    }
+
+
+    struts {
+         left 2
+         right 2
+         top 2
+         bottom 2
+    }
+}
+
+
+prefer-no-csd

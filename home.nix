@@ -8,12 +8,12 @@ let
         --prefix LD_LIBRARY_PATH : "${pkgs.lib.makeLibraryPath [ pkgs.libsndfile ]}"
     '';
   });
-   cfgdir = "${config.home.homeDirectory}/.config";
+   
 in
 {
 
   imports = [
-    inputs.matugen.nixosModules.default
+    ./modules/matugen.nix
     inputs.zen-browser.homeModules.twilight
   ];
 
@@ -23,23 +23,6 @@ in
     stateVersion = "25.11";
 
    file.".local/share/icons".source = config.lib.file.mkOutOfStoreSymlink "/home/kaluna/Pictures/icons"; #icons symlink
-   file."matugen/templates" = {
-    source = ./templates;
-    target = "${cfgdir}/matugen/templates";
-    recursive = true;
-   };
-   file.".config/matugen/config2.toml".text = ''
-[config]
-
-[templates.cava]
-input_path = '${./templates/cava-colors.ini}'
-output_path = '${cfgdir}/cava/themes/matugen.ini'
-post_hook = 'pkill -USR1 cava'
-
-[templates.rmpc]
-input_path = '${./templates/rmpc.ron}'
-output_path = '${cfgdir}/rmpc/themes/matugen.ron'
-  '';
 
     packages = with pkgs; [
       # -- System Tools & Utilities --
@@ -213,7 +196,7 @@ systemd.user = {
 programs = { 
    home-manager.enable = true; # Let Home Manager install and manage itself.
    zen-browser.enable = true;
-   matugen.enable = true;
+   
    git = {
     enable = true;
     settings.user.name = "Kjnx006";

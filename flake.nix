@@ -35,6 +35,7 @@
         extraSpecialArgs = { inherit inputs; };
         modules = [
           ./home.nix
+	  ./modules/matugen.nix
         ];
       };
     };
