@@ -35,6 +35,8 @@ in
       qemu
       virt-manager
       kdePackages.kate
+      starship
+      tmux
 
       # -- Desktop Environment & UI --
       waybar                  # Status bar
@@ -53,7 +55,10 @@ in
       easyeffects             # System-wide audio effects
       yabridge                # VST bridge (Windows plugins)
       yabridgectl             # Control tool for yabridge
-      
+      ardour
+      carla
+      vital
+
       # -- Multimedia & Graphics --
       mpv                     # Video player
       imv                     # Image viewer
@@ -67,7 +72,7 @@ in
       vesktop                 # Discord client (optimized)
       vencord                 # Discord tweaks
       qbittorrent             # Torrent client
-      thunderbird	      # Mail client
+      thunderbird             # Mail client
       
       # -- Gaming & Misc --
       heroic
@@ -142,6 +147,7 @@ xdg = {
     };
   };
   configFile."mimeapps.list".force = true; # < force replacing the mimeapps file
+
 };
 
 systemd.user = {
