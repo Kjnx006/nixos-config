@@ -17,6 +17,8 @@
      url = "github:chaotic-cx/nyx";
      inputs.nixpkgs.follows = "nixpkgs";
     };
+    matugen.url = "github:/InioX/Matugen";
+    matugen.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = inputs @ { nixpkgs, home-manager, ... }:

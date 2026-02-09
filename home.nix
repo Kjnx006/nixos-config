@@ -8,10 +8,12 @@ let
         --prefix LD_LIBRARY_PATH : "${pkgs.lib.makeLibraryPath [ pkgs.libsndfile ]}"
     '';
   });
+   cfgdir = "${config.home.homeDirectory}/.config";
 in
 {
 
   imports = [
+    inputs.matugen.nixosModules.default
     inputs.zen-browser.homeModules.twilight
   ];
 
@@ -20,7 +22,24 @@ in
     homeDirectory = "/home/kaluna";
     stateVersion = "25.11";
 
-  file.".local/share/icons".source = config.lib.file.mkOutOfStoreSymlink "/home/kaluna/Pictures/icons"; #icons symlink
+   file.".local/share/icons".source = config.lib.file.mkOutOfStoreSymlink "/home/kaluna/Pictures/icons"; #icons symlink
+   file."matugen/templates" = {
+    source = ./templates;
+    target = "${cfgdir}/matugen/templates";
+    recursive = true;
+   };
+   file.".config/matugen/config2.toml".text = ''
+[config]
+
+[templates.cava]
+input_path = '${./templates/cava-colors.ini}'
+output_path = '${cfgdir}/cava/themes/matugen.ini'
+post_hook = 'pkill -USR1 cava'
+
+[templates.rmpc]
+input_path = '${./templates/rmpc.ron}'
+output_path = '${cfgdir}/rmpc/themes/matugen.ron'
+  '';
 
     packages = with pkgs; [
       # -- System Tools & Utilities --
@@ -39,9 +58,12 @@ in
       swww                    # Wallpaper daemon
       swaynotificationcenter  # Notification center 
       rofi                    # App launcher / Menu
+      wofi
       faugus-launcher         # Alternative launcher
-      
-      
+      hyprshade
+      nmgui
+      yad
+
       # -- Audio Production (Pro Audio) --
       reaper-with-libsndfile  # DAW (Custom wrapper)
       libsndfile              # Library audio
@@ -68,14 +90,15 @@ in
       heroic
       protonplus              # Proton manager (Wine/Steam)
       rmpc                    # Music player
-      libsForQt5.qtstyleplugins
+      kdePackages.qtstyleplugin-kvantum
+      kdePackages.qt6ct
     ];
     activation = {
   setDolphinIcons = lib.hm.dag.entryAfter ["writeBoundary"] ''
     ${pkgs.kdePackages.kconfig}/bin/kwriteconfig6 --file kdeglobals --group Icons --key Theme "Fluent-teal-dark"
   '';
     };
-};
+  };
 
   gtk = {
     enable = true;
@@ -100,7 +123,7 @@ in
 
   qt = {
     enable = true;
-    platformTheme.name = "gtk";
+    platformTheme.name = "qt6ct";
     style.name = "kvantum";
   };
 
@@ -140,7 +163,8 @@ xdg = {
 
 systemd.user = {
    sessionVariables = {
-   # QT_STYLE_OVERRIDE = "kvantum";
+     QT_QPA_PLATFORMTHEME = "qt6ct";
+     QT_STYLE_OVERRIDE = "kvantum";
      QT_QPA_PLATFORM = "wayland";
 
      XDG_SESSION_TYPE = "wayland";
@@ -189,6 +213,7 @@ systemd.user = {
 programs = { 
    home-manager.enable = true; # Let Home Manager install and manage itself.
    zen-browser.enable = true;
+   matugen.enable = true;
    git = {
     enable = true;
     settings.user.name = "Kjnx006";
